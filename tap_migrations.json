@@ -1,4 +1,5 @@
 {
+  "kindle-comic-converter": "homebrew/cask",
   "dmenu-mac": "homebrew/cask",
   "tritium": "homebrew/cask",
   "ntfstool": "homebrew/cask",
