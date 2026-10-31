@@ -14,6 +14,7 @@ cask "mindforger" do
       json["assets"]&.map do |asset|
         match = asset["name"]&.match(regex)
         next if match.blank?
+
         "#{match[1]},#{match[2]}"
       end
     end
