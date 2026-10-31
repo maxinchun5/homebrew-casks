@@ -9,16 +9,13 @@ cask "mindforger" do
 
   livecheck do
     url :url
-    regex(/^mindforger[._-]v?(\d+(?:\.\d+)+)[._-](\d{8}\.\d{6})[._-]intel\.dmg$/i)
-    strategy :github_releases do |releases, regex|
-      releases.reject { |release| release["draft"] || release["prerelease"] }
-              .flat_map do |release|
-                release["assets"].flat_map do |asset|
-                  asset["name"].scan(regex).map do |match|
-                    match.join(",")
-                  end
-                end
-              end
+    regex(/^mindforger[._-]v?(\d+(?:\.\d+)+)[._-](\d+(?:\.\d+)*)[._-]intel\.dmg$/i)
+    strategy :github_latest do |json, regex|
+      json["assets"]&.map do |asset|
+        match = asset["name"]&.match(regex)
+        next if match.blank?
+        "#{match[1]},#{match[2]}"
+      end
     end
   end
 
